@@ -44,7 +44,6 @@
 
 .card {
   border: none;
-
   margin: 1.5rem 1.5rem;
   width: 250px;
   box-shadow: 1px 2px 17px 2px rgba(0, 0, 0, 0.067);
@@ -77,9 +76,9 @@
   background: linear-gradient(217deg, #e7c400, rgba(255, 0, 0, 0) 70.71%),
     linear-gradient(127deg, #4c8213, rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, #085d02, rgba(0, 0, 255, 0) 70.71%);
-
   position: relative;
 }
+
 .top.mid {
   height: 200px;
   width: 100%;
@@ -92,18 +91,17 @@
     ),
     linear-gradient(127deg, rgba(63, 76, 190, 0.8), rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, rgba(141, 138, 83, 0.8), rgba(0, 0, 255, 0) 70.71%);
-
   position: relative;
 }
+
 .top.right {
   height: 200px;
   width: 100%;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background: linear-gradient(217deg, #e7c400, rgba(255, 0, 0, 0) 70.71%),
-    linear-gradient(127deg, #4c8213, rgba(0, 255, 0, 0) 70.71%),
+  background: linear-gradient(217deg, #4c8213, rgba(255, 0, 0, 0) 70.71%),
+    linear-gradient(127deg, #e7c400, rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, #085d02, rgba(0, 0, 255, 0) 70.71%);
-
   position: relative;
 }
 
@@ -118,4 +116,13 @@
 .card-title {
   font-weight: bold;
   margin-bottom: 0;
+}
+
+.dropdown {
+  margin: 20px;
+}
+
+.dropdown-menu {
+  max-height: 20rem;
+  overflow-y: auto;
 }

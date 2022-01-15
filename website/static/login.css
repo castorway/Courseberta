@@ -1,0 +1,102 @@
+/* GOOGLE FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fccb90;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to right,
+    #ee7724,
+    #d8363a,
+    #dd3675,
+    #b44593
+  );
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(
+    90deg,
+    rgba(8, 93, 2, 1) 0%,
+    rgba(233, 197, 0, 1) 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .gradient-form {
+    height: 95vh !important;
+  }
+}
+@media (min-width: 769px) {
+  .gradient-custom-2 {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
+}
+
+.login-div {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px; */
+}
+
+.login-login-btn {
+  background: rgb(76, 130, 19);
+  border: none;
+}
+
+.login-login-btn:hover {
+  background: #c9b94f;
+  /* color: #000; */
+}
+
+/* background: rgb(85, 144, 22); */
+
+.login-sign-btn {
+  border-color: rgba(8, 93, 2, 1);
+}
+
+.login-sign-btn:hover {
+  background: #c9b94fc1;
+  border-color: #c9b94fc1;
+}
+
+.login-section {
+  font-family: "Poppins", sans-serif;
+}
+
+.login-prompt-text {
+  font-size: 0.8rem;
+}
+
+.login-prompt-text-btn {
+  font-size: 0.9rem;
+}
+
+.login-side-text {
+  font-size: 1rem;
+  text-align: justify;
+}
+
+.gradient-custom-sign {
+  /* fallback for old browsers */
+  background: #fccb90;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to right,
+    #ee7724,
+    #d8363a,
+    #dd3675,
+    #b44593
+  );
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(
+    180deg,
+    rgba(8, 93, 2, 1) 0%,
+    rgba(233, 197, 0, 1) 70%,
+    rgb(81, 93, 2) 100%
+  );
+}

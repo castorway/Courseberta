@@ -59,7 +59,6 @@ def home():
 
         # if form submitted from Answer #1 (for choosing a course)
         elif form_submit == "answer1":
-            # TODO: integrate with frontend
             course_tag = request.form['courseTag']
             course_number = request.form['courseNumber']
             
@@ -74,7 +73,7 @@ def home():
                 return render_template('home.html', user=current_user, show_modal="answerModal1")
 
             # store in session so we know what the incoming answer is for
-            session['current_course'] = [course_tag, course_number]
+            # session['current_course'] = [course_tag, course_number]
 
             questions = models.Question.query.filter_by(course_acronym=course_tag, course_number=course_number)
             print("> Got questions\n", [q.question for q in questions])
@@ -86,11 +85,15 @@ def home():
         # if form submitted from Answer #2 (for choosing a question to answer)
         elif form_submit == "answer2":
             # TODO: integrate with frontend
-            answer = request.form['message']
+            question_id = request.form['questionSelected']
+            question = models.Question.query.get(int(question_id))
 
-            print('> answer submitted', answer, flush=True)
+            print("> question selected:", question_id, question.question)
+            session['current_question_id'] = question_id
+
+            return render_template('home.html', user=current_user, show_modal="answerModal3", question=question)
             
-            answer = models.Answer(course_acronym=course_acronym, course_number=course_number, question=question)
+           # answer = models.Answer(course_acronym=course_acronym, course_number=course_number, question=question)
         
     else:
         return render_template('home.html', user=current_user)

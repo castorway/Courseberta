@@ -61,8 +61,8 @@ for li in li_elems:
 
             if len(Prof_Text) > 0:
                 print(Instructors_soup.find("h2", {"class":"m-0"}).text+': ')
-                Course_Split = Course_Accronym = Instructors_soup.find("h2", {"class":"m-0"}).text.split('-')[0].strip().split(' ')
-                Course_Name = Course_Accronym = Instructors_soup.find("h2", {"class":"m-0"}).text.split('-')[1].strip()
+                Course_Split = Instructors_soup.find("h2", {"class":"m-0"}).text.split('-')[0].strip().split(' ')
+                Course_Name = Instructors_soup.find("h2", {"class":"m-0"}).text.split('-')[1].strip()
                                                
                 Course_Accronym = " ".join(Course_Split[0:len(Course_Split)-1])
                 Course_Number = " ".join(Course_Split[len(Course_Split)-1])

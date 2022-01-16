@@ -5,7 +5,7 @@
 <!-- Ask/answer/view buttons -->
 
 <div class="main-page-logo" style='margin-bottom: 2rem;'>
-    <img src="{{ url_for('static', filename='logo.svg') }}" alt="logo" class="mt-3 mb-4 pb-1" />
+    <img src="{{ url_for('static', filename='logo.svg') }}" alt="logo" class="mt-1 mb-4 pb-1" />
 </div>
 
 <row>
@@ -17,7 +17,7 @@
             <!-- <img class="card-img-top" src="images/nC.webp" alt="Card image cap"> -->
             <div class="card-body">
                 <h5 class="card-title">Post a Question</h5>
-                <p class="card-text">Ask a question about any course</p>
+                <p class="card-text" style='margin-top: 10px;'>Ask a question about any course</p>
                 <a type="button" class="stretched-link" data-bs-toggle="modal" data-bs-target="#questionModal"></a>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <!-- <img class="card-img-top" src="images/nC.webp" alt="Card image cap"> -->
             <div class="card-body">
                 <h5 class="card-title">Answer a Question</h5>
-                <p class="card-text">Help other students out</p>
+                <p class="card-text" style='margin-top: 10px;'>Help other students out</p>
                 <a type="button" class="stretched-link" data-bs-toggle="modal" data-bs-target="#answerModal1"></a>
             </div>
         </div>
@@ -40,7 +40,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">View All Posts</h5>
-                <p class="card-text">See what other students have to say</p>
+                <p class="card-text" style='margin-top: 10px;'>See what other students have to say</p>
                 <a type="button" class="stretched-link" data-bs-toggle="modal" data-bs-target="#viewModal1"></a>
             </div>
         </div>
@@ -50,8 +50,8 @@
                 <p class="caption">RATINGS</p>
             </div>
             <div class="card-body">
-                <h5 class="card-title">Check Professor Ratings</h5>
-                <p class="card-text">Based on Rate My Professor ratings</p>
+                <h5 class="card-title">Professor Ratings</h5>
+                <p class="card-text" style='margin-top: 10px;'>Based on Rate My Professor ratings</p>
                 <a type="button" class="stretched-link" data-bs-toggle="modal" data-bs-target="#ratingsModal1"></a>
             </div>
         </div>
@@ -159,10 +159,10 @@
                                     <li class="questions-s-list">
 
                                         <row>
-                                            <col-5 style='margin-right: 20px;'>{{ question.id }}</col-5>
-                                            <col-5><button type="submit" name="questionSelected" value="{{ question.id }}" class="btn btn-light">
-                                                {{ question.question }}    
-                                            </button></col-5>
+                                            <!-- <col-5 style='margin-right: 20px;'>{{ question.id }}</col-5> -->
+                                            <button type="submit" name="questionSelected" value="{{ question.id }}" class="btn btn-lg btn-block btn-light">
+                                                <p style='text-align: left;'>{{ question.question }}</p>    
+                                            </button>
 
                                         </row>
 

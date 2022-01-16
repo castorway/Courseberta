@@ -168,6 +168,7 @@ def home():
 
             except:
                 print("Course does not exist") 
+                flash("This course is not being taught in the current or next semester",category="error")
                 
             if course_tag == "base":
                 return render_template('home.html', user=current_user, 

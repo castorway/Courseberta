@@ -115,7 +115,7 @@ textarea {
 }
 
 .caption {
-  color: rgba(255, 255, 255, 0.286);
+  color: rgba(255, 255, 255, 0.386);
   position: absolute;
   bottom: -32px;
   left: 4px;
@@ -156,14 +156,4 @@ textarea {
   margin-bottom: 1.5rem;
   padding: 0;
   width: 100%;
-}
-
-.btn-primary,
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary:visited {
-  background-color: linear-gradient(217deg, #ffbf69, rgba(255, 0, 0, 0) 70.71%),
-    linear-gradient(127deg, #cbf3f0, rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(to top right, #2ec4b6, rgba(0, 0, 255, 0) 90.71%) !important;
-  border: none;
 }

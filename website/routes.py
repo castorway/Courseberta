@@ -95,6 +95,28 @@ def home():
             
            # answer = models.Answer(course_acronym=course_acronym, course_number=course_number, question=question)
         
+        elif form_submit == "view1":
+            course_tag = request.form['courseTag']
+            course_number = request.form['courseNumber']
+            
+            if course_tag == "base":
+                flash("Please pick a course name.", category='error')
+                return render_template('home.html', user=current_user, show_modal="answerModal1")
+            elif len(course_number) == 0:
+                flash("Please enter a course id.", category="error")
+                return render_template('home.html', user=current_user, show_modal="answerModal1")
+            elif len(course_number) <= 2:
+                flash("Please enter a valid course id.", category="error")
+                return render_template('home.html', user=current_user, show_modal="answerModal1")
+
+            questions = models.Question.query.filter_by(course_acronym=course_tag, course_number=course_number)
+            print("> Got questions\n", [q.question for q in questions])
+
+            # show_answer2 should cause page to automatically show modal for seeing list of questions
+            return render_template('home.html', user=current_user, show_modal="viewModal2",
+                course_tag=course_tag, course_number=course_number, questions=questions)
+
+
     else:
         return render_template('home.html', user=current_user)
 

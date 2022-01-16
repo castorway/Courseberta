@@ -1,0 +1,29 @@
+{% extends "base.html"%} {% block title %} Verify {% endblock %} {% block content %}
+
+<section class="gradient-form login-section">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="rounded-3 text-black">
+                    <div class="row g-0 login-div">
+                        <div class="card-body p-md-5 mx-md-4">
+                            <form action="/verify" method="POST">
+                                <h3 align="center">Verify</h3>
+                                <p>Please check your @ualberta email address for the 6-digit verification code.</p>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" id="code" name="code" placeholder="012345" />
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block fa-md mb-2.5 pt-2 pb-2 login-login-btn">
+                                    Verify Me
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+{% endblock %}

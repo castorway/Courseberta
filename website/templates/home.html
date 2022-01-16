@@ -11,6 +11,16 @@
     {% endfor %}
 {% endmacro %}
 
+{% macro emotion_to_emoji(emotion) %}
+    {% if emotion == "Happy" %} 😀
+    {% elif emotion == "Angry" %} 😡
+    {% elif emotion == "Surprise" %} 😮
+    {% elif emotion == "Sad" %} 😰
+    {% elif emotion == "Fear" %} 😨
+    {% else %} 🙂
+    {% endif %}
+{% endmacro %}
+
 <!-- Ask/answer/view buttons -->
 
 <div class="main-page-logo" style='margin-bottom: 2rem;'>
@@ -163,18 +173,16 @@
                             {{ modal_error_messages('answerModal2') }}
                             <div class="list-type1">
                                 <ol class="questions-b-list">
-
                                     {% for question in questions %}
                                     <li class="questions-s-list">
 
-                                        <row>
-                                            <!-- <col-5 style='margin-right: 20px;'>{{ question.id }}</col-5> -->
-                                            <button type="submit" name="questionSelected" value="{{ question.id }}"
-                                                class="btn btn-lg btn-block btn-light">
-                                                <p style='text-align: left;'>{{ question.question }}</p>
-                                            </button>
-
-                                        </row>
+                                        <button type="submit" name="questionSelected" value="{{ question.id }}"
+                                            class="btn btn-lg btn-block btn-light">
+                                            <p style='text-align: left; font-size: 12; '>
+                                                {{ question.question }}
+                                            </p>
+                                        </button>
+                                        {{ emotion_to_emoji(question.sentiment) }}
 
                                         <hr />
                                     </li>
@@ -292,22 +300,24 @@
                     <ul>
                         {% for question in questions %}
 
-                        <l1>
+
                             <button class="btn btn-light btnquestions" data-bs-toggle="collapse"
                                 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                <p><strong>► Question: </strong>{{ question.question }}</p>
-                            </button> {% for answer in question.answers %}
-
-                            <div class="collapse" id="collapseExample">
-                                <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
-                                    <div>→</div>
-                                    <div>{{ answer.answer }}</div>
+                                <p style="padding: 0;"><strong>► Question: </strong>{{ question.question }}{{ emotion_to_emoji(answer.sentiment) }}</p>
+                            </button> 
+                            
+                            {% for answer in question.answers %}
+                                <div class="collapse" id="collapseExample">
+                                    <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
+                                        <div>→</div>
+                                        <div><p style='text-align: left; white-space: pre-wrap;'>{{ answer.answer }}</p></div>
+                                        
+                                    </div>
                                 </div>
-                            </div>
                             {% endfor %}
                             <hr>
-                            </li>
-                            {% endfor %}
+
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -365,7 +375,9 @@
                 </div>
 
                 <div class="modal-body">
-                    <ul>
+                    
+
+                    <ul style='list-style: none'>
                         {% for di in profs %}
 
                         <li>

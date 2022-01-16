@@ -13,12 +13,14 @@ class Question(db.Model):
     course_acronym = db.Column(db.String(15))
     course_number = db.Column(db.Integer)
     question = db.Column(db.String(500))
+    sentiment = db.Column(db.String(15))
 
     answers = db.relationship('Answer', back_populates='question')
     
 class Answer(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     answer = db.Column(db.String(1000))
+    sentiment = db.Column(db.String(15))
 
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
     question = db.relationship('Question', back_populates='answers')

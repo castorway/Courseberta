@@ -14,10 +14,12 @@
   );
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(
-    90deg,
-    rgba(8, 93, 2, 1) 0%,
-    rgb(196, 180, 0) 100%
-  );
+      217deg,
+      rgba(59, 168, 174, 1),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(127deg, rgb(153, 73, 191), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(105, 184, 127, 0.5), rgba(0, 0, 255, 0) 70.71%);
 }
 
 @media (min-width: 768px) {
@@ -41,24 +43,24 @@
 }
 
 .login-login-btn {
-  background: rgb(76, 130, 19);
+  background: rgb(59, 136, 174);
   border: none;
 }
 
 .login-login-btn:hover {
-  background: rgb(160, 184, 1);
+  background: rgb(1, 166, 184);
   /* color: #000; */
 }
 
 /* background: rgb(85, 144, 22); */
 
 .login-sign-btn {
-  border-color: rgba(8, 93, 2, 1);
+  border-color: rgba(59, 136, 174, 1);
 }
 
 .login-sign-btn:hover {
-  background: rgb(76, 130, 19);
-  border-color: rgb(76, 130, 19);
+  background: rgb(1, 166, 184);
+  border-color: rgb(59, 136, 174);
   color: white;
 }
 

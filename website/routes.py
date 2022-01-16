@@ -24,40 +24,64 @@ def home():
         if form_submit == "question":
             course_tag = request.form['courseTag']
             course_number = request.form['courseNumber']
-            question = request.form['questionMessage']
             text = request.form['questionMessage']
 
-            print('> ask submitted:', course_tag, course_number, question, flush=True)
-            
-            # add question to database
-            question = models.Question(course_acronym=course_tag, course_number=course_number, question=question)
-            
-            emotion = te.get_emotion(text)
-            
-            maxemotion = max(emotion)
-            print(emotion)
-            print(maxemotion)
-            
-            db.session.add(question)
-            db.session.commit()
+            if course_tag == "base":
+                flash("Please pick a course name.", category='error')
+            elif len(course_number) == 0:
+                flash("Please enter a course id.", category="error")
+            elif len(course_number) <= 2:
+                flash("Please enter a valid course id.", category="error")
+            elif len(text) <= 5:
+                flash("Please enter your question.", category="error")
+            else:
+                print('> ask submitted:', course_tag, course_number, text, flush=True)
+                
+                # add question to database
+                question = models.Question(course_acronym=course_tag, course_number=course_number, question=text)
+                
+                emotion = te.get_emotion(text)
+                
+                maxemotion = max(emotion)
+                print(emotion)
+                print(maxemotion)
+                
+                db.session.add(question)
+                db.session.commit()
 
-            flash("Your question has been submitted.", category="success")
-            return render_template('home.html', user=current_user)
+                flash("Your question has been submitted.", category="success")
+                
+                # return to homepage with no modal shown
+                return redirect(url_for("routes.home"))
+                
+            # return to question modal
+            return render_template('home.html', user=current_user, show_modal="questionModal")
 
         # if form submitted from Answer #1 (for choosing a course)
         elif form_submit == "answer1":
             # TODO: integrate with frontend
             course_tag = request.form['courseTag']
             course_number = request.form['courseNumber']
+            
+            if course_tag == "base":
+                flash("Please pick a course name.", category='error')
+                return render_template('home.html', user=current_user, show_modal="answerModal1")
+            elif len(course_number) == 0:
+                flash("Please enter a course id.", category="error")
+                return render_template('home.html', user=current_user, show_modal="answerModal1")
+            elif len(course_number) <= 2:
+                flash("Please enter a valid course id.", category="error")
+                return render_template('home.html', user=current_user, show_modal="answerModal1")
 
             # store in session so we know what the incoming answer is for
             session['current_course'] = [course_tag, course_number]
 
             questions = models.Question.query.filter_by(course_acronym=course_tag, course_number=course_number)
-            print(q.question for q in questions)
+            print("> Got questions\n", [q.question for q in questions])
 
             # show_answer2 should cause page to automatically show modal for seeing list of questions
-            return render_template('home.html', user=current_user, show_answer2=True)
+            return render_template('home.html', user=current_user, show_modal="answerModal2",
+                course_tag=course_tag, course_number=course_number, questions=questions)
 
         # if form submitted from Answer #2 (for choosing a question to answer)
         elif form_submit == "answer2":

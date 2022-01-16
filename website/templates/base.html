@@ -51,12 +51,18 @@
       >
         <span class="navbar-toggle-icon"></span>
       </button>
-      <div class="collapse navbar-collapse  d-flex flex-row-reverse" id="navbar">
-        <div class="navbar-nav">
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav  d-flex justify-content-between"  style="width:100%">
           {% if user.is_authenticated %}
-          <!-- <a class="nav-item nav-link" id="home" href="/" style="color: grey"
-            >Home</a
-          > -->
+          <a class="nav-item nav-link" id="home" href="/" style="color: grey"
+            ></a
+          >
+          <a class="nav-item nav-link" id="home" href="/" style="color: grey"
+            ><div class="main-page-logo" style='width: 2rem;height: 2rem;'>
+    <img src="{{ url_for('static', filename='logo.svg') }}" alt="logo" />
+</div></a
+          >
+          
           <a
             class="nav-item nav-link"
             id="logout"
@@ -64,6 +70,7 @@
             style="color: rgb(135, 135, 135)"
             >Logout</a
           >
+          
           {% else %}
           <a class="nav-item nav-link" id="login" href="/login">Login</a>
           <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>

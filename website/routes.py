@@ -1,3 +1,4 @@
+from turtle import pos
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from . import models
@@ -191,7 +192,7 @@ def home():
                 "course_number": course_number
             }
 
-            # get ratings for this user that are positive
+            # get pos ratings for this user so we can display buttons
             my_ratings = models.Rating.query.filter_by(user_id=current_user.id, value=1)
             pos_rated_ans_ids = [r.answer_id for r in my_ratings]
 
@@ -207,13 +208,13 @@ def home():
 
             print("got ratings:", [r.user_id for r in ratings])
 
-            if ratings:
+            if ratings.count():
                 # if the user has already rated this answer, toggle the rating
 
                 rating = ratings[0]
                 rating.value = 1 if rating.value == 0 else 0 # toggle
 
-                answer = models.Answer.query.get(int(answer_id))
+                answer = models.Answer.query.get(answer_id)
                 # then we need to change value of answer
                 if rating.value == 1:
                     answer.agree += 1
@@ -242,9 +243,10 @@ def home():
             questions = models.Question.query.filter_by(course_acronym=course_tag, course_number=course_number)
             print("> Got questions\n", [q.question for q in questions])
 
-            # get ratings for this user
-            my_ratings = models.Rating.query.filter_by(user_id=current_user.id)
+            # get pos ratings for this user so we can display buttons
+            my_ratings = models.Rating.query.filter_by(user_id=current_user.id, value=1)
             pos_rated_ans_ids = [r.answer_id for r in my_ratings]
+            print("pos_rated_ans_ids:", pos_rated_ans_ids)
 
             return render_template('home.html', user=current_user, show_modal="viewModal2",
                 course_tag=course_tag, course_number=course_number, questions=questions,

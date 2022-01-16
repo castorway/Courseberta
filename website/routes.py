@@ -142,6 +142,24 @@ def home():
             # show_answer2 should cause page to automatically show modal for seeing list of questions
             return render_template('home.html', user=current_user, show_modal="viewModal2",
                 course_tag=course_tag, course_number=course_number, questions=questions)
+            
+        elif form_submit == "rating1":
+            course_tag = request.form['courseTag']
+            course_number = request.form['courseNumber']
+            
+            if course_tag == "base":
+                return render_template('home.html', user=current_user, 
+                    show_modal="answerModal1", error_text="Please pick a course name.")
+            elif len(course_number) == 0:
+                return render_template('home.html', user=current_user, 
+                    show_modal="answerModal1", error_text="Please enter a course id.")
+            elif len(course_number) <= 2:
+                return render_template('home.html', user=current_user, 
+                    show_modal="answerModal1", error_text="Please enter a valid course id.")
+
+            # show_answer2 should cause page to automatically show modal for seeing list of professors
+            return render_template('home.html', user=current_user, show_modal="ratingModal2",
+                course_tag=course_tag, course_number=course_number)
 
 
     else:

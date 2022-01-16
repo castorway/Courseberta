@@ -230,6 +230,12 @@
 
 .question-inline {
   display: grid;
-  grid-template-columns: 0.05fr 3fr;
-  grid-gap: 20px;
+  grid-template-columns: 0.3fr 3.5fr;
+  grid-gap: 7px;
+}
+
+.question-inline1 {
+  display: grid;
+  grid-template-columns: 0.8fr 3.5fr 1fr;
+  grid-gap: 7px;
 }

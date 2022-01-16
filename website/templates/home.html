@@ -24,7 +24,7 @@
 <!-- Ask/answer/view buttons -->
 
 <div class="main-page-logo" style='margin-bottom: 2rem; width: 20%; height: 20%;'>
-    <img src="{{ url_for('static', filename='logo_long.svg') }}" alt="logo" class="mt-1 mb-4 pb-1" />
+    <img src="{{ url_for('static', filename='long.svg') }}" alt="logo" class="mt-1 mb-4 pb-1" />
 </div>
 
 <row>
@@ -304,34 +304,40 @@
                 <div class="modal-body">
                     <ul>
                         {% for question in questions %}
-                            <button class="btn btn-light btnquestions" data-bs-toggle="collapse"
+                            <button class="btn btn-light btnquestions view-qanswers" data-bs-toggle="collapse"
                                 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                <p class="question-inline" style="padding: 0; text-align: left; white-space: pre-line;"><strong>► Question: </strong>{{ question.question }}{{ emotion_to_emoji(question.sentiment) }}</p>
+                                <p class="question-inline1" style="padding: 0; text-align: left; white-space: pre-line;"><div style="padding-right: 5px;"><strong>► Question: </strong></div>
+                                    <div>{{ question.question }} {{ emotion_to_emoji(question.sentiment) }}</div></p>
                             </button> 
                             
                             <div class="collapse" id="collapseExample">
-
-                                {% for answer in question.answers %}
+                                {% if question.answers %}
+                                    {% for answer in question.answers %}
+                                        <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
+                                            <div>→</div>
+                                            <div><p style='text-align: left; white-space: pre-wrap;'>{{ answer.answer }}{{ emotion_to_emoji(answer.sentiment) }}</p></div>
+                                        </div>
+                                        Agrees: {{ answer.agree }}
+                                        
+                                        <!-- agree/disagree system -->
+                                        {% if answer.id in pos_rated_ans_ids %}
+                                            <form action="/" method="POST" >
+                                                <input type="hidden" name="answerSelected" value="{{ answer.id }}">
+                                                <button name="formSubmit" class="btn btn-secondary" value="view2">Disagree</button>
+                                            </form>
+                                        {% else %}
+                                            <form action="/" method="POST">
+                                                <input type="hidden" name="answerSelected" value="{{ answer.id }}">
+                                                <button name="formSubmit" class="btn btn-primary" value="view2">Agree</button>
+                                            </form>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
                                     <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
                                         <div>→</div>
-                                        <div><p style='text-align: left; white-space: pre-wrap;'>{{ answer.answer }}</p></div>
-                                        
+                                        <div><p style='text-align: left; white-space: pre-wrap;'><i>No answers yet.</i></p></div>
                                     </div>
-                                    {{ emotion_to_emoji(answer.sentiment) }}
-                                    RATING: {{ answer.agree }}
-                                    <!-- agree/disagree system -->
-                                    {% if answer.id in pos_rated_ans_ids %}
-                                        <form action="/" method="POST">
-                                            <input type="hidden" name="answerSelected" value="{{ answer.id }}">
-                                            <button name="formSubmit" class="btn btn-secondary" value="view2">Disagree</button>
-                                        </form>
-                                    {% else %}
-                                        <form action="/" method="POST">
-                                            <input type="hidden" name="answerSelected" value="{{ answer.id }}">
-                                            <button name="formSubmit" class="btn btn-primary" value="view2">Agree</button>
-                                        </form>
-                                    {% endif %}
-                                {% endfor %}
+                                {% endif %}
                             </div>
                         <hr>
 

@@ -198,4 +198,38 @@
     display: none;
   }
 }
-  
+
+.boxed1 {
+  /* background-color: rgba(189, 189, 189, 0.807);
+  border-radius: 8px;
+  padding: 5px 10px; */
+  border-color: rgb(240, 240, 240);
+  color: rgb(89,98, 105);
+}
+
+.boxed1:focus {
+  /* background-color: rgba(189, 189, 189, 0.807);
+  border-radius: 8px;
+  padding: 5px 10px; */
+  border-color: rgb(240, 240, 240);
+  color: rgb(89,98, 105);
+}
+
+.boxed {
+  background-color: rgba(234, 234, 234, 0.982);
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+
+.boxed3 {
+  background-color: rgba(234, 234, 234, 0.982);
+  border-radius: 8px;
+  padding: 5px 4px;
+}
+
+
+.question-inline {
+  display: grid;
+  grid-template-columns: 0.05fr 3fr;
+  grid-gap: 20px;
+}

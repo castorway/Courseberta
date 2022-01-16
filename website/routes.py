@@ -185,9 +185,70 @@ def home():
             questions = models.Question.query.filter_by(course_acronym=course_tag, course_number=course_number)
             print("> Got questions\n", [q.question for q in questions])
 
+            # set session variables for view2
+            session['current_course_info'] = {
+                "course_tag": course_tag,
+                "course_number": course_number
+            }
+
+            # get ratings for this user that are positive
+            my_ratings = models.Rating.query.filter_by(user_id=current_user.id, value=1)
+            pos_rated_ans_ids = [r.answer_id for r in my_ratings]
+
             # show_answer2 should cause page to automatically show modal for seeing list of questions
             return render_template('home.html', user=current_user, show_modal="viewModal2",
-                course_tag=course_tag, course_number=course_number, questions=questions)
+                course_tag=course_tag, course_number=course_number, questions=questions,
+                pos_rated_ans_ids=pos_rated_ans_ids)
+
+        elif form_submit.startswith("view2"):
+
+            answer_id = int(request.form["answerSelected"])
+            ratings = models.Rating.query.filter_by(user_id=current_user.id, answer_id=answer_id)
+
+            print("got ratings:", [r.user_id for r in ratings])
+
+            if ratings:
+                # if the user has already rated this answer, toggle the rating
+
+                rating = ratings[0]
+                rating.value = 1 if rating.value == 0 else 0 # toggle
+
+                answer = models.Answer.query.get(int(answer_id))
+                # then we need to change value of answer
+                if rating.value == 1:
+                    answer.agree += 1
+                else:
+                    answer.agree -= 1
+
+            else:
+                # user hasnt rated yet
+
+                # add new rating
+                rating = models.Rating(user_id=current_user.id, answer_id=answer_id, value=1)
+                db.session.add(rating)
+
+                # increment answer.agree
+                answer = models.Answer.query.get(answer_id)
+                answer.agree += 1
+
+            # commit changes
+            db.session.commit()
+
+            # need to rerender view2
+
+            course_tag = session['current_course_info']['course_tag']
+            course_number = session['current_course_info']['course_number']
+
+            questions = models.Question.query.filter_by(course_acronym=course_tag, course_number=course_number)
+            print("> Got questions\n", [q.question for q in questions])
+
+            # get ratings for this user
+            my_ratings = models.Rating.query.filter_by(user_id=current_user.id)
+            pos_rated_ans_ids = [r.answer_id for r in my_ratings]
+
+            return render_template('home.html', user=current_user, show_modal="viewModal2",
+                course_tag=course_tag, course_number=course_number, questions=questions,
+                pos_rated_ans_ids=pos_rated_ans_ids)
             
         elif form_submit == "rating1":
             course_tag = request.form['courseTag']

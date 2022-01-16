@@ -24,7 +24,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     
     # we want to run or get the db before UI
-    from .models import User, Question, Answer
+    from .models import User, Question, Answer, Rating
     
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

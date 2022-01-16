@@ -90,13 +90,13 @@
                         <div class="container questions-cont">
                             <div class="row questions-cont1">
                                 <div class="col-7 questions-cont1">
-                                    <select aria-label="Default select example" class="form-select" id="selectPicker"
+                                    <select aria-label="Default select example" class="form-select boxed1" id="selectPicker"
                                         name="courseTag">
                                         <option selected value="base">Course Name</option>
                                     </select>
                                 </div>
                                 <div class="col-5 questions-cont2">
-                                    <input class="form-control" type="text" name="courseNumber"
+                                    <input class="form-control boxed1" type="text" name="courseNumber"
                                         placeholder="Course ID" />
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="">Enter your question</label>
-                            <textarea class="form-control" name="questionMessage" id="" cols="30" rows="5"></textarea>
+                            <textarea class="form-control boxed1" name="questionMessage" id="" cols="30" rows="5"></textarea>
                         </div>
                         {{ modal_error_messages('questionModal') }}
                         <button type="submit" name="formSubmit" value="question" class="askbtn">
@@ -132,13 +132,13 @@
                         <div class="container questions-cont">
                             <div class="row questions-cont1">
                                 <div class="col-7 questions-cont1">
-                                    <select aria-label="Default select example" class="form-select" id="selectAns"
+                                    <select aria-label="Default select example" class="form-select boxed1" id="selectAns"
                                         name="courseTag">
                                         <option selected value="base">Course Name</option>
                                     </select>
                                 </div>
                                 <div class="col-5 questions-cont2">
-                                    <input class="form-control" type="text" name="courseNumber"
+                                    <input class="form-control boxed1" type="text" name="courseNumber"
                                         placeholder="Course ID" />
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
 
     <!-- Answer Modal [answer2] -->
     <div class="modal fade" id="answerModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable "
             style="width: 600px; height: 550px;">
             <div class="modal-content" style='height: 550px'>
                 <div class="modal-header">
@@ -178,11 +178,12 @@
 
                                         <button type="submit" name="questionSelected" value="{{ question.id }}"
                                             class="btn btn-lg btn-block btn-light">
-                                            <p style='text-align: left; font-size: 12; '>
-                                                {{ question.question }}
-                                            </p>
+                                            <div>
+                                                <p style='text-align: left; white-space: pre-line;'>
+                                                    {{ question.question }}
+                                                </p>
+                                            </div>
                                         </button>
-                                        {{ emotion_to_emoji(question.sentiment) }}
 
                                         <hr />
                                     </li>
@@ -227,12 +228,16 @@
 
                 <div class="modal-body">
                     <form action="/" , method="POST">
-                        {% if question %} {{ question.course_acronym }} {{ question.course_number }}
-                        <br /> "{{ question.question }}"
+                        {% if question %} 
+                        
+                        <p><strong>Course </strong><span class="boxed">{{ question.course_acronym }} {{ question.course_number }}</span></p>
+                        <br /> 
+                        <p> 
+                        <p class="question-inline" style='text-align: left; white-space: pre-line;'><strong>Question</strong> <span class="boxed">{{ question.question }}</span></p>
                         <input type="hidden" name="questionSelected" value="{{ question.id }}" /> {% endif %}
                         <div class="mb-3">
-                            <label class="form-label" for="">Answer this question</label>
-                            <textarea class="form-control" name="answerMessage" id="text-align" cols="30"
+                            <label class="form-label" for="">Answer question</label>
+                            <textarea class="form-control boxed1" name="answerMessage" id="text-align" cols="30"
                                 rows="15"></textarea>
                         </div>
 
@@ -262,13 +267,13 @@
                         <div class="container questions-cont">
                             <div class="row questions-cont1">
                                 <div class="col-7 questions-cont1">
-                                    <select aria-label="Default select example" class="form-select" id="selectView"
+                                    <select aria-label="Default select example" class="form-select boxed1" id="selectView"
                                         name="courseTag">
                                         <option selected value="base">Course Name</option>
                                     </select>
                                 </div>
                                 <div class="col-5 questions-cont2">
-                                    <input class="form-control" type="text" name="courseNumber"
+                                    <input class="form-control boxed1" type="text" name="courseNumber"
                                         placeholder="Course ID" />
                                 </div>
                             </div>
@@ -299,26 +304,39 @@
                 <div class="modal-body">
                     <ul>
                         {% for question in questions %}
-
-
+                        {% for answer in question.answers %}
                             <button class="btn btn-light btnquestions" data-bs-toggle="collapse"
                                 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                <p style="padding: 0;"><strong>► Question: </strong>{{ question.question }}{{ emotion_to_emoji(answer.sentiment) }}</p>
+                                <p class="question-inline" style="padding: 0; text-align: left; white-space: pre-line;"><strong>► Question: </strong>{{ question.question }}{{ emotion_to_emoji(answer.sentiment) }}</p>
                             </button> 
                             
-                            {% for answer in question.answers %}
-                                <div class="collapse" id="collapseExample">
-                                    <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
-                                        <div>→</div>
-                                        <div><p style='text-align: left; white-space: pre-wrap;'>{{ answer.answer }}</p></div>
-                                        
-                                    </div>
+                            <div class="collapse" id="collapseExample">
+                                <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
+                                    <div>→</div>
+                                    <div><p style='text-align: left; white-space: pre-wrap;'>{{ answer.answer }}</p></div>
+                                    
                                 </div>
+                                RATING: {{ answer.agree }}
+                                <!-- agree/disagree system -->
+                                {% if answer.id in pos_ratings %}
+                                    <form action="/" method="POST">
+                                        <input type="hidden" name="answerSelected" value="{{ answer.id }}">
+                                        <button name="formSubmit" class="btn btn-error" value="view2">Disagree</button>
+                                    </form>
+                                {% else %}
+                                    <form action="/" method="POST">
+                                        <input type="hidden" name="answerSelected" value="{{ answer.id }}">
+                                        <button name="formSubmit" class="btn btn-primary" value="view2">Agree</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                
                             {% endfor %}
                             <hr>
 
                         {% endfor %}
                     </ul>
+                    </form>
                 </div>
             </div>
         </div>
@@ -340,13 +358,13 @@
                         <div class="container questions-cont">
                             <div class="row questions-cont1">
                                 <div class="col-7 questions-cont1">
-                                    <select aria-label="Default select example" class="form-select" id="selectRating"
+                                    <select aria-label="Default select example" class="form-select boxed1" id="selectRating"
                                         name="courseTag">
                                         <option selected value="base">Course Name</option>
                                     </select>
                                 </div>
                                 <div class="col-5 questions-cont2">
-                                    <input class="form-control" type="text" name="courseNumber"
+                                    <input class="form-control boxed1" type="text" name="courseNumber"
                                         placeholder="Course ID" />
                                 </div>
                             </div>
@@ -385,8 +403,8 @@
                             <p><strong>{{prof_name}}</strong></p>
 
                             <p>
-                            <div><strong>{{ di['Name'] }} </strong>with rating: <strong>{{ di['Rating'] }} </strong>and
-                                a number of <strong>{{ di['NumOfRatings'] }}</strong> ratings</div>
+                            <div><strong class="boxed3">{{ di['Name'] }}</strong> has a rating: <strong class="boxed3">{{ di['Rating'] }}</strong> with
+                                <strong class="boxed3">{{ di['NumOfRatings'] }}</strong> total ratings</div>
                             </p>
 
                             <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>

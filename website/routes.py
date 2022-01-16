@@ -27,13 +27,18 @@ def home():
             text = request.form['questionMessage']
 
             if course_tag == "base":
-                flash("Please pick a course name.", category='error')
+                return render_template('home.html', user=current_user, 
+                    show_modal="questionModal", error_text="Please pick a course name.")
             elif len(course_number) == 0:
-                flash("Please enter a course id.", category="error")
+                return render_template('home.html', user=current_user, 
+                    show_modal="questionModal", error_text="Please enter a course id.")
             elif len(course_number) <= 2:
-                flash("Please enter a valid course id.", category="error")
-            elif len(text) <= 5:
-                flash("Please enter your question.", category="error")
+                return render_template('home.html', user=current_user, 
+                    show_modal="questionModal", error_text="Please enter a valid course id.")
+            elif len(text) <= 2:
+                return render_template('home.html', user=current_user, 
+                    show_modal="questionModal", error_text="Please enter your question.")
+
             else:
                 print('> ask submitted:', course_tag, course_number, text, flush=True)
                 
@@ -55,7 +60,7 @@ def home():
                 return redirect(url_for("routes.home"))
                 
             # return to question modal
-            return render_template('home.html', user=current_user, show_modal="questionModal")
+            return render_template('home.html', user=current_user, show_modal="questionModal", validated=validated)
 
         # if form submitted from Answer #1 (for choosing a course)
         elif form_submit == "answer1":
@@ -63,14 +68,14 @@ def home():
             course_number = request.form['courseNumber']
             
             if course_tag == "base":
-                flash("Please pick a course name.", category='error')
-                return render_template('home.html', user=current_user, show_modal="answerModal1")
+                return render_template('home.html', user=current_user, 
+                    show_modal="answerModal1", error_text="Please pick a course name.")
             elif len(course_number) == 0:
-                flash("Please enter a course id.", category="error")
-                return render_template('home.html', user=current_user, show_modal="answerModal1")
+                return render_template('home.html', user=current_user, 
+                    show_modal="answerModal1", error_text="Please enter a course id.")
             elif len(course_number) <= 2:
-                flash("Please enter a valid course id.", category="error")
-                return render_template('home.html', user=current_user, show_modal="answerModal1")
+                return render_template('home.html', user=current_user, 
+                    show_modal="answerModal1", error_text="Please enter a valid course id.")
 
             # store in session so we know what the incoming answer is for
             # session['current_course'] = [course_tag, course_number]
@@ -91,23 +96,45 @@ def home():
             print("> question selected:", question_id, question.question)
             session['current_question_id'] = question_id
 
-            return render_template('home.html', user=current_user, show_modal="answerModal3", question=question)
+            return render_template('home.html', user=current_user, show_modal="answerModal3", 
+                question=question)
             
            # answer = models.Answer(course_acronym=course_acronym, course_number=course_number, question=question)
         
+        elif form_submit == "answer3":
+            text = request.form['answerMessage']
+
+            question_id = request.form['questionSelected']
+            question = models.Question.query.get(int(question_id))
+
+            if len(text) <= 5:
+                return render_template('home.html', user=current_user,
+                    error_text="Please enter your answer.")
+            
+            print("> got answer:", text)
+            print("> question selected:", question_id, question.question)
+
+            answer = models.Answer(answer=text, question=question)  
+            db.session.add(answer)   
+            db.session.commit()       
+
+            flash("Your answer has been submitted.", category="success")
+            return render_template('home.html', user=current_user)
+
+
         elif form_submit == "view1":
             course_tag = request.form['courseTag']
             course_number = request.form['courseNumber']
             
             if course_tag == "base":
-                flash("Please pick a course name.", category='error')
-                return render_template('home.html', user=current_user, show_modal="answerModal1")
+                return render_template('home.html', user=current_user, 
+                    show_modal="answerModal1", error_text="Please pick a course name.")
             elif len(course_number) == 0:
-                flash("Please enter a course id.", category="error")
-                return render_template('home.html', user=current_user, show_modal="answerModal1")
+                return render_template('home.html', user=current_user, 
+                    show_modal="answerModal1", error_text="Please enter a course id.")
             elif len(course_number) <= 2:
-                flash("Please enter a valid course id.", category="error")
-                return render_template('home.html', user=current_user, show_modal="answerModal1")
+                return render_template('home.html', user=current_user, 
+                    show_modal="answerModal1", error_text="Please enter a valid course id.")
 
             questions = models.Question.query.filter_by(course_acronym=course_tag, course_number=course_number)
             print("> Got questions\n", [q.question for q in questions])

@@ -1,14 +1,16 @@
-var coll = document.getElementsByClassName("collapsible");
-var i;
+// function myFunction() {
+//     var element = document.getElementById("ans");
+//     if (element.classList == "hidden") {
+//         element.classList = "show";
+//     } else if (element.classList == "show") {
+//         element.classList = "hidden";
+//     }
+// }
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function () {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
+// function changeClass() {
+//     // Code examples from above
+// }
+
+// window.onload = function() {
+//     document.getElementById("questans").addEventListener("click", changeClass);
+// };

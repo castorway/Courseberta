@@ -4,16 +4,20 @@
 
 <!-- Ask/answer/view buttons -->
 
-<section>
-    <div class="cards">
+<div class="main-page-logo" style='margin-bottom: 2rem;'>
+    <img src="{{ url_for('static', filename='logo.svg') }}" alt="logo" class="mt-3 mb-4 pb-1" />
+</div>
+
+<row>
+    <div class="cards" style='padding-top: 2rem;'>
         <div class="card">
             <div class="top left">
                 <p class="caption">ASK</p>
             </div>
             <!-- <img class="card-img-top" src="images/nC.webp" alt="Card image cap"> -->
             <div class="card-body">
-                <h5 class="card-title">Have a question?</h5>
-                <p class="card-text">Ask about a specific subject</p>
+                <h5 class="card-title">Post a Question</h5>
+                <p class="card-text">Ask a question about any course</p>
                 <a type="button" class="stretched-link" data-bs-toggle="modal" data-bs-target="#questionModal"></a>
             </div>
         </div>
@@ -35,8 +39,8 @@
                 <p class="caption">VIEW</p>
             </div>
             <div class="card-body">
-                <h5 class="card-title">View all questions</h5>
-                <p class="card-text">Answer some questions</p>
+                <h5 class="card-title">View All Posts</h5>
+                <p class="card-text">See what other students have to say</p>
                 <a type="button" class="stretched-link" data-bs-toggle="modal" data-bs-target="#viewModal1"></a>
             </div>
         </div>
@@ -46,21 +50,19 @@
                 <p class="caption">RATINGS</p>
             </div>
             <div class="card-body">
-                <h5 class="card-title">Check Professor's Ratings</h5>
-                <p class="card-text">Answer some questions</p>
+                <h5 class="card-title">Check Professor Ratings</h5>
+                <p class="card-text">Based on Rate My Professor ratings</p>
                 <a type="button" class="stretched-link" data-bs-toggle="modal" data-bs-target="#ratingsModal1"></a>
             </div>
         </div>
     </div>
-
-
 
     <!-- Question Modal -->
     <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 450px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ask a question</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ask a question about a course</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -70,8 +72,8 @@
                             <div class="row questions-cont1">
                                 <div class="col-7 questions-cont1">
                                     <select aria-label="Default select example" class="form-select" id="selectPicker" name="courseTag">
-                                        <option selected value="base">Course Name</option>
-                                    </select>
+                    <option selected value="base">Course Name</option>
+                  </select>
                                 </div>
                                 <div class="col-5 questions-cont2">
                                     <input class="form-control" type="text" name="courseNumber" placeholder="Course ID" />
@@ -83,9 +85,13 @@
                             <label class="form-label" for="">Enter your question</label>
                             <textarea class="form-control" name="questionMessage" id="" cols="30" rows="5"></textarea>
                         </div>
-
-                        <button type="submit" name="formSubmit" value="question" class="askbtn">Submit Question</button>
-
+                        {% if error_text %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error!</strong> {{ error_text }}
+                        </div>{% endif %}
+                        <button type="submit" name="formSubmit" value="question" class="askbtn">
+              Submit Question
+            </button>
                     </form>
                 </div>
             </div>
@@ -98,7 +104,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                        Answer a question on a course [ANSWER 1]
+                        Answer a question about a course
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -109,8 +115,8 @@
                             <div class="row questions-cont1">
                                 <div class="col-7 questions-cont1">
                                     <select aria-label="Default select example" class="form-select" id="selectAns" name="courseTag">
-                                                            <option selected value="base">Course Name</option>
-                                                        </select>
+                    <option selected value="base">Course Name</option>
+                  </select>
                                 </div>
                                 <div class="col-5 questions-cont2">
                                     <input class="form-control" type="text" name="courseNumber" placeholder="Course ID" />
@@ -118,8 +124,14 @@
                             </div>
                         </div>
 
+                        {% if error_text %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error!</strong> {{ error_text }}
+                        </div>{% endif %}
 
-                        <button type="submit" name="formSubmit" value="question" class="askbtn">Submit Question</button>
+                        <button type="submit" name="formSubmit" value="answer1" class="askbtn">
+              Select Course
+            </button>
                     </form>
                 </div>
             </div>
@@ -128,11 +140,11 @@
 
     <!-- Answer Modal [answer2] -->
     <div class="modal fade" id="answerModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 450px">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" style="width: 600px; height: 550px;">
+            <div class="modal-content" style='height: 550px'>
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                        Answer a question for {{ course_tag }} {{ course_number }}
+                        Answer a question about {{ course_tag }} {{ course_number }}
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -140,17 +152,26 @@
                 <div class="modal-body">
                     <div class="select-drops">
                         <form action="/" , method="POST">
-                            <ul>
-                                {% for question in questions %}
-                                <li>
-                                    {{ question.question }}
-                                    <button type="submit" name="questionSelected" value="{{ question.id }}" class="btn btn-primary">
-                                                                Answer This Question
-                                                            </button>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            <input type="hidden" name="formSubmit" value="answer2">
+                            <div class="list-type1">
+                                <ol class="questions-b-list">
+
+                                    {% for question in questions %}
+                                    <li class="questions-s-list">
+
+                                        <row>
+                                            <col-5 style='margin-right: 20px;'>{{ question.id }}</col-5>
+                                            <col-5><button type="submit" name="questionSelected" value="{{ question.id }}" class="btn btn-light">
+                                                {{ question.question }}    
+                                            </button></col-5>
+
+                                        </row>
+
+                                        <hr />
+                                    </li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+                            <input type="hidden" name="formSubmit" value="answer2" />
                         </form>
                         <!-- <select style="display: inline-block; width: 150px" aria-label="Default select example" class="form-select selectPicker" id="selectPicker" name="courseTag">
                                 <option selected value="base" name="courseAcronym">
@@ -177,41 +198,38 @@
 
     <!-- Answer Modal [answer3] -->
     <div class="modal fade" id="answerModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 450px">
+        <div class="modal-dialog modal-dialog-centered modal-xl" style="width: 600px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                        Answer a question on a course [ANSWER 3]
+                        Answer this question
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
                     <form action="/" , method="POST">
-                        <div class="select-drops">
-                            <select style="display: inline-block; width: 150px" aria-label="Default select example" class="form-select selectPicker" id="selectPicker" name="courseTag">
-                                                    <option selected value="base" name="courseAcronym">
-                                                        Course Name
-                                                    </option>
-                                                </select>
-                            <div class="dropdown mb-3">
-                                <label class="form-label" for=""></label>
-                                <input class="form-control" type="text" name="courseNumber" placeholder="Course ID" />
-                            </div>
+                        {% if question %} {{ question.course_acronym }} {{ question.course_number }}
+                        <br /> "{{ question.question }}"
+                        <input type="hidden" name="questionSelected" value="{{ question.id }}" /> {% endif %}
+                        <div class="mb-3">
+                            <label class="form-label" for="">Answer this question</label>
+                            <textarea class="form-control" name="answerMessage" id="text-align" cols="30" rows="15"></textarea>
                         </div>
 
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-                        <button type="submit" name="formSubmit" value="answer1" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#askModal">
-                                                Submit
-                                            </button>
+                        {% if error_text %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error!</strong> {{ error_text }}
+                        </div>{% endif %}
+
+                        <button type="submit" name="formSubmit" value="answer3" class="askbtn">
+              Submit Answer
+            </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- View (Questions) Modal [View 1] -->
     <div class="modal fade" id="viewModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -230,8 +248,8 @@
                             <div class="row questions-cont1">
                                 <div class="col-7 questions-cont1">
                                     <select aria-label="Default select example" class="form-select" id="selectView" name="courseTag">
-                                        <option selected value="base">Course Name</option>
-                                    </select>
+                                            <option selected value="base">Course Name</option>
+                                        </select>
                                 </div>
                                 <div class="col-5 questions-cont2">
                                     <input class="form-control" type="text" name="courseNumber" placeholder="Course ID" />
@@ -239,9 +257,14 @@
                             </div>
                         </div>
 
-                        <button type="submit" name="formSubmit" value="view1" class="submit-form btn btn-primary">
-                            Next
-                        </button>
+                        {% if error_text %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error!</strong> {{ error_text }}
+                        </div>{% endif %}
+
+                        <button type="submit" name="formSubmit" value="view1" class="askbtn">
+              Select Course
+            </button>
                     </form>
                 </div>
             </div>
@@ -255,18 +278,27 @@
         <div class="modal-dialog modal-dialog-view modal-dialog-centered modal-xl modal-dialog-scrollable" style="width: 1500px">
             <div class="modal-content modal-view">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">All questions</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">All questions for {{ course_tag }} {{ course_number }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
                     <ul>
                         {% for question in questions %}
-                        <li>
-                            {{ question.question }} {% for answer in question.answers %} {{ answer.answer }} {% endfor %}
-                        </li>
-                        {% endfor %}
 
+                        <l1>
+                            <button class="btn btn-light btnquestions">
+                                <p><strong>Question: </strong>{{ question.question }}</p>
+                            </button> {% for answer in question.answers %}
+
+                            <div class="question-answer-arrow" style='margin-top: 10px'>
+                                <div>→</div>
+                                <div>{{ answer.answer }}</div>
+                            </div>
+                            {% endfor %}
+                            <hr>
+                            </li>
+                            {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -289,9 +321,9 @@
                         <div class="container questions-cont">
                             <div class="row questions-cont1">
                                 <div class="col-7 questions-cont1">
-                                    <select aria-label="Default select example" class="form-select" id="selectAns" name="courseTag">
-                                                            <option selected value="base">Course Name</option>
-                                                        </select>
+                                    <select aria-label="Default select example" class="form-select" id="selectRating" name="courseTag">
+                    <option selected value="base">Course Name</option>
+                  </select>
                                 </div>
                                 <div class="col-5 questions-cont2">
                                     <input class="form-control" type="text" name="courseNumber" placeholder="Course ID" />
@@ -299,110 +331,119 @@
                             </div>
                         </div>
 
-
-                        <button type="submit" name="formSubmit" value="question" class="askbtn">Check Ratings</button>
+                        <button type="submit" name="formSubmit" value="rating1" class="askbtn">
+              Check Ratings
+            </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="modal fade" id="ratingModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 450px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Check professor's ratings for courses
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-backdrop" class="modal-backdrop-transparent modal-transition"></div>
-</section>
+</row>
 
 <!-- this is terrible (sorry) -->
 <div id="showModalDiv" data-bs-name="{{ show_modal }}"></div>
 
-{% endblock %}odal
-<a></a>
-<a></a>
-<a></a>
-<a></a>
+{% endblock %} > >
+<button <select <input />
+<textarea></textarea>
+</div>
+<button>
+<div
 
+     >
+<button
 
+           
+           
+           
+          <select
 
+                   
+                   
+                   
+                  <input
 
-
-> >
-<button <select>
-<input
- 
                    
                    
                    />
-  <textarea
- 
+<button
+
+             
+             
+             
+            
+   
+   
+   
+   
+   >
+<div
+
+     >
+<button
+
+           
+           
+           
+          <button
+
+                   
+                   
+                   
+                  
+   
+   
+   
+   
+   >
+<div
+
+     >
+<button
+
+           
+           
+           
+          
+           <br/>
+<input
+
+             
+             
+/>
+
+      <textarea
+
                
                
                
                ></textarea>
-  <button
- 
+<button
+
              
              
              
             
-                </button> > >
-<button <select name="courseTag">
-<input
- 
-                   
-                   
-                   />
-  <button
- 
-             
-             
-             
-            
-                </button> > >
-<button <button>
- /
-   
-   
-   
-   
-   >
-<div
-
-     >
-<button
-
-           
-           
-           
-          <select
-
-               
-               
-               
-               >
-<input
-
-                 
-                 
-                 />
-<button
-
-             
-             >
-<button
-
-             
-             
-             
-             
-             >
-
-   
-   
-   
-   
-   >
-<div
-
-     >
-
    
    
    
@@ -446,6 +487,7 @@
            
            
           
+             
    
    
    
@@ -462,224 +504,11 @@
           <select
 
                    
-                   name="courseTag"
->
-<input
+                   
+                   
+                  <input
 
                    
                    
                    />
-<button
-
-             
-             
-             >
-<a
- 
-         
-         
-         ></a>
-  <a
- 
-         
-         
-         ></a>
-  <a
- 
-         
-         
-         ></a>
-  <a
- 
-         
-         
-         ></a>
-  
-   
-   
-   
-   
-   >
-
-     
-     >
-<button
- 
-           
-           
-           
-          <select
- 
-                   
-                   
-                   >
-<input
- 
-                   
-                   
-                   
- />
- <textarea
-
-               
-               
-               
-               
-               <button
-
-             
-             
-             
-            
-                </button> > >
-<button <select name="courseTag">
- <input
-
-                   
-                   
-                   
- />
-<button
- 
-             
-             
-             
-            
-              </button> > >
-<button <button>
- /
-   
-   
-   
-   
-   >
-
-     
-     >
-<button
- 
-           
-           
-           
-           <select
-
-               
-               
-               
-               >
- <input
-
-                 
-                 
-                 
- />
- <button
-
-             
-             >
- <button
-
-             
-             
-             
-             
-             >
-
-   
-   
-   
-   
-   >
-
-     
-     >
-
-   
-   
-   
-   
-   >
-
-     
-     >
-<button
- 
-           
-           
-           
-           <select
-
-                   
-                   
-                   >
-<input
- 
-                   
-                   
-                   />
-  <button
- 
-             
-             
-             >
-
-   
-   
-   
-   
-   >
-
-     
-     >
-<button
- 
-           
-           
-           
-          
-   
-   
-   
-   
-   >
-
-     
-     >
-<button
- 
-           
-           
-           
-          <select
- 
-                   
-                   name="courseTag"
->
-<input
- 
-                   
-                   
-                   
- />
-<button
- 
-             
-             
-             
-            
-              </button> > >/>>/>>>>
-<div>><input/>bton>>
-    <div> >
-        <div>
-            <selectname="courseTag">
-                <input/> button/>
-                </button>
-        </div> /bton></div>
-    </button>
-    <>
-</div>
-</div>
-</button>
-</button </button>
-</div>
-</button>
+<buttonswer

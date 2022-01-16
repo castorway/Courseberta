@@ -36,16 +36,25 @@ def home():
 
             if course_tag == "base":
                 return render_template('home.html', user=current_user, 
-                    show_modal="questionModal", error_text="Please pick a course name.")
+                    show_modal="questionModal", 
+                    modal_errors=[{
+                        "text": "Please pick a course name.",
+                        "modal": "questionModal"}])
             elif len(course_number) == 0:
                 return render_template('home.html', user=current_user, 
-                    show_modal="questionModal", error_text="Please enter a course id.")
+                    show_modal="questionModal", modal_errors=[{
+                        "text": "Please enter a course ID.",
+                        "modal": "questionModal"}])
             elif len(course_number) <= 2:
                 return render_template('home.html', user=current_user, 
-                    show_modal="questionModal", error_text="Please enter a valid course id.")
+                    show_modal="questionModal", modal_errors=[{
+                        "text": "Please enter a valid course ID.",
+                        "modal": "questionModal"}])
             elif len(text) <= 2:
                 return render_template('home.html', user=current_user, 
-                    show_modal="questionModal", error_text="Please enter your question.")
+                    show_modal="questionModal", modal_errors=[{
+                        "text": "Please enter your question.",
+                        "modal": "questionModal"}])
 
             else:
                 print('> ask submitted:', course_tag, course_number, text, flush=True)
@@ -77,13 +86,19 @@ def home():
             
             if course_tag == "base":
                 return render_template('home.html', user=current_user, 
-                    show_modal="answerModal1", error_text="Please pick a course name.")
+                    show_modal="answerModal1", modal_errors=[{
+                        "text": "Please pick a course name.",
+                        "modal": "answerModal1"}])
             elif len(course_number) == 0:
                 return render_template('home.html', user=current_user, 
-                    show_modal="answerModal1", error_text="Please enter a course id.")
+                    show_modal="answerModal1", modal_errors=[{
+                        "text": "Please enter a course ID.",
+                        "modal": "answerModal1"}])
             elif len(course_number) <= 2:
                 return render_template('home.html', user=current_user, 
-                    show_modal="answerModal1", error_text="Please enter a valid course id.")
+                    show_modal="answerModal1", modal_errors=[{
+                        "text": "Please enter a valid course ID.",
+                        "modal": "questionModal"}])
 
             # store in session so we know what the incoming answer is for
             # session['current_course'] = [course_tag, course_number]
@@ -97,7 +112,6 @@ def home():
 
         # if form submitted from Answer #2 (for choosing a question to answer)
         elif form_submit == "answer2":
-            # TODO: integrate with frontend
             question_id = request.form['questionSelected']
             question = models.Question.query.get(int(question_id))
 
@@ -137,13 +151,19 @@ def home():
             
             if course_tag == "base":
                 return render_template('home.html', user=current_user, 
-                    show_modal="answerModal1", error_text="Please pick a course name.")
+                    show_modal="viewModal1", modal_errors=[{
+                        "text": "Please pick a course name.",
+                        "modal": "viewModal1"}])
             elif len(course_number) == 0:
                 return render_template('home.html', user=current_user, 
-                    show_modal="answerModal1", error_text="Please enter a course id.")
+                    show_modal="viewModal1", modal_errors=[{
+                        "text": "Please enter a course ID.",
+                        "modal": "viewModal1"}])
             elif len(course_number) <= 2:
                 return render_template('home.html', user=current_user, 
-                    show_modal="answerModal1", error_text="Please enter a valid course id.")
+                    show_modal="viewModal1", modal_errors=[{
+                        "text": "Please enter a valid course ID.",
+                        "modal": "viewModal1"}])
 
             questions = models.Question.query.filter_by(course_acronym=course_tag, course_number=course_number)
             print("> Got questions\n", [q.question for q in questions])
@@ -155,6 +175,23 @@ def home():
         elif form_submit == "rating1":
             course_tag = request.form['courseTag']
             course_number = request.form['courseNumber']
+            
+            # input validation
+            if course_tag == "base":
+                return render_template('home.html', user=current_user, 
+                    show_modal="ratingModal1", modal_errors=[{
+                        "text": "Please pick a course name.",
+                        "modal": "ratingModal1"}])
+            elif len(course_number) == 0:
+                return render_template('home.html', user=current_user, 
+                    show_modal="ratingModal1", modal_errors=[{
+                        "text": "Please enter a course ID.",
+                        "modal": "ratingModal1"}])
+            elif len(course_number) <= 2:
+                return render_template('home.html', user=current_user, 
+                    show_modal="ratingModal1", modal_errors=[{
+                        "text": "Please enter a valid course ID.",
+                        "modal": "ratingModal1"}])
 
             try:
                 ProfList = CourseData[course_tag][course_number]
@@ -168,23 +205,30 @@ def home():
 
             except:
                 print("Course does not exist") 
-                flash("This course is not being taught in the current or next semester",category="error")
+                return render_template('home.html', user=current_user, show_modal="ratingModal1",
+                    modal_errors=[{
+                        "text": "This course is not being taught in the current or next semester.",
+                        "modal": "ratingModal1"}])
                 
             if course_tag == "base":
                 return render_template('home.html', user=current_user, 
-                    show_modal="answerModal1", error_text="Please pick a course name.")
+                    show_modal="ratingModal1", modal_errors=[{
+                        "text": "Please pick a course name.",
+                        "modal": "ratingModal1"}])
             elif len(course_number) == 0:
                 return render_template('home.html', user=current_user, 
-                    show_modal="answerModal1", error_text="Please enter a course id.")
+                    show_modal="ratingModal1", modal_errors=[{
+                        "text": "Please enter a course ID.",
+                        "modal": "ratingModal1"}])
             elif len(course_number) <= 2:
                 return render_template('home.html', user=current_user, 
-                    show_modal="answerModal1", error_text="Please enter a valid course id.")
+                    show_modal="ratingModal1", modal_errors=[{
+                        "text": "Please enter a valid course ID.",
+                        "modal": "ratingModal1"}])
 
             # show_answer2 should cause page to automatically show modal for seeing list of professors
             return render_template('home.html', user=current_user, show_modal="ratingModal2",
                 course_tag=course_tag, course_number=course_number, profs=ProfList)
-
-        
 
 
     else:

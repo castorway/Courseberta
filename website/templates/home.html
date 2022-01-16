@@ -23,8 +23,8 @@
 
 <!-- Ask/answer/view buttons -->
 
-<div class="main-page-logo" style='margin-bottom: 2rem;'>
-    <img src="{{ url_for('static', filename='logo.svg') }}" alt="logo" class="mt-1 mb-4 pb-1" />
+<div class="main-page-logo" style='margin-bottom: 2rem; width: 20%; height: 20%;'>
+    <img src="{{ url_for('static', filename='logo_long.svg') }}" alt="logo" class="mt-1 mb-4 pb-1" />
 </div>
 
 <row>
@@ -304,35 +304,36 @@
                 <div class="modal-body">
                     <ul>
                         {% for question in questions %}
-                        {% for answer in question.answers %}
                             <button class="btn btn-light btnquestions" data-bs-toggle="collapse"
                                 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                <p class="question-inline" style="padding: 0; text-align: left; white-space: pre-line;"><strong>► Question: </strong>{{ question.question }}{{ emotion_to_emoji(answer.sentiment) }}</p>
+                                <p class="question-inline" style="padding: 0; text-align: left; white-space: pre-line;"><strong>► Question: </strong>{{ question.question }}{{ emotion_to_emoji(question.sentiment) }}</p>
                             </button> 
                             
                             <div class="collapse" id="collapseExample">
-                                <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
-                                    <div>→</div>
-                                    <div><p style='text-align: left; white-space: pre-wrap;'>{{ answer.answer }}</p></div>
-                                    
-                                </div>
-                                RATING: {{ answer.agree }}
-                                <!-- agree/disagree system -->
-                                {% if answer.id in pos_ratings %}
-                                    <form action="/" method="POST">
-                                        <input type="hidden" name="answerSelected" value="{{ answer.id }}">
-                                        <button name="formSubmit" class="btn btn-error" value="view2">Disagree</button>
-                                    </form>
-                                {% else %}
-                                    <form action="/" method="POST">
-                                        <input type="hidden" name="answerSelected" value="{{ answer.id }}">
-                                        <button name="formSubmit" class="btn btn-primary" value="view2">Agree</button>
-                                    </form>
-                                {% endif %}
+
+                                {% for answer in question.answers %}
+                                    <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
+                                        <div>→</div>
+                                        <div><p style='text-align: left; white-space: pre-wrap;'>{{ answer.answer }}</p></div>
+                                        
+                                    </div>
+                                    {{ emotion_to_emoji(answer.sentiment) }}
+                                    RATING: {{ answer.agree }}
+                                    <!-- agree/disagree system -->
+                                    {% if answer.id in pos_rated_ans_ids %}
+                                        <form action="/" method="POST">
+                                            <input type="hidden" name="answerSelected" value="{{ answer.id }}">
+                                            <button name="formSubmit" class="btn btn-secondary" value="view2">Disagree</button>
+                                        </form>
+                                    {% else %}
+                                        <form action="/" method="POST">
+                                            <input type="hidden" name="answerSelected" value="{{ answer.id }}">
+                                            <button name="formSubmit" class="btn btn-primary" value="view2">Agree</button>
+                                        </form>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
-                
-                            {% endfor %}
-                            <hr>
+                        <hr>
 
                         {% endfor %}
                     </ul>

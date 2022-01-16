@@ -7,7 +7,6 @@ from flask_login import LoginManager, login_manager
 db = SQLAlchemy()  # init db
 DB_NAME = 'database.db'
 
-
 # creates the flask app
 def create_app():
     app = Flask(__name__)
@@ -25,7 +24,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     
     # we want to run or get the db before UI
-    from .models import User
+    from .models import User, Question, Answer, Rating
     
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

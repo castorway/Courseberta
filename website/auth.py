@@ -110,7 +110,7 @@ def verify():
         user_params = session['user_params']
 
         if check_verification(user_params['email'], code):
-            # only now do we add the user
+            # only if the user enters the correct code do we add the user
             
             new_user = User(**user_params)
             db.session.add(new_user)
@@ -129,6 +129,8 @@ def verify():
 
 
 def send_verification(email):
+    """ Send email verification code using Twilio
+    """
     verification = client.verify.services(VERIFY_SERVICE_SID).verifications.create(
         to=email,
         channel='email'
@@ -136,6 +138,8 @@ def send_verification(email):
     print('made verification:', verification.sid, flush=True)
 
 def check_verification(email, code):
+    """ Check email verification code using Twilio
+    """
     check = client.verify.services(VERIFY_SERVICE_SID).verification_checks.create(
         to=email, code=code
     )    

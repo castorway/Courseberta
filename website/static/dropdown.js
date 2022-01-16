@@ -945,6 +945,7 @@ courses = [
 var selectAsk = document.getElementById("selectPicker");
 var selectAns = document.getElementById("selectAns");
 var selectView = document.getElementById("selectView");
+var selectRating = document.getElementById("selectRating");
 options = [];
 for (let i = 0; i < courses.length; i++) {
   options.push(courses[i].Accronym);
@@ -970,4 +971,11 @@ for (var i = 0; i < options.length; i++) {
   el.textContent = opt;
   el.value = opt;
   selectView.appendChild(el);
+}
+for (var i = 0; i < options.length; i++) {
+  var opt = options[i];
+  var el = document.createElement("option");
+  el.textContent = opt;
+  el.value = opt;
+  selectRating.appendChild(el);
 }

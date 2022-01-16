@@ -1,3 +1,81 @@
 .home-modal-backdrop {
-    background-color: red;
+  background-color: red;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-body {
+  -ms-overflow-style: none;
+  /* for Internet Explorer, Edge */
+  scrollbar-width: none;
+  /* for Firefox */
+  overflow-y: scroll;
+}
+
+.modal-body::-webkit-scrollbar {
+  display: none;
+  /* for Chrome, Safari, and Opera */
+}
+
+.askbtn {
+  padding: 15px 40px;
+  background: rgb(8, 93, 2);
+  background: linear-gradient(
+      to bottom right,
+      rgb(240, 212, 130),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(233deg, #8ee272, rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(to top left, rgb(66, 191, 57), rgba(0, 0, 255, 0) 70.71%);
+  border: 0;
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 3px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  display: block;
+}
+
+.askbtn::after,
+.askbtn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.askbtn::after {
+  width: 30px;
+  height: 1px;
+  background: white;
+  transform: translateX(-3px);
+  margin-top: 0px;
+}
+
+.askbtn::before {
+  content: "";
+  transform: rotate(-135deg) translateX(50%);
+  width: 11px;
+  height: 11px;
+  background: transparent;
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
+  margin-top: -1px;
+}
+
+.askbtn:hover {
+  padding: 15px 60px 15px 20px;
+}
+
+.askbtn:hover::after,
+.askbtn:hover::before {
+  opacity: 1;
+  right: 15px;
 }

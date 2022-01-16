@@ -114,6 +114,21 @@ textarea {
   position: relative;
 }
 
+.top.rating {
+  height: 200px;
+  width: 100%;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background: linear-gradient(
+      217deg,
+      rgba(213, 92, 207, 0.8),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(127deg, rgba(188, 190, 63, 0.8), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(88, 174, 198, 0.8), rgba(0, 0, 255, 0) 70.71%);
+  position: relative;
+}
+
 .caption {
   color: rgba(255, 255, 255, 0.386);
   position: absolute;

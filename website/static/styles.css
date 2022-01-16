@@ -106,7 +106,7 @@
   border-top-right-radius: 4px;
   background: linear-gradient(217deg, #ffbf69, rgba(255, 0, 0, 0) 70.71%),
     linear-gradient(127deg, #cbf3f0, rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, #2ec4b6, rgba(0, 0, 255, 0) 90.71%);
+    linear-gradient(to top right, #2ec4b6, rgba(0, 0, 255, 0) 90.71%);
   position: relative;
 }
 

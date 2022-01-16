@@ -161,6 +161,14 @@
   cursor: none;
 }
 
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 /* .ansParent {
     display: grid;
     grid-template-areas: "left right";

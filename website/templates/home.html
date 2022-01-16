@@ -287,13 +287,15 @@
                         {% for question in questions %}
 
                         <l1>
-                            <button class="btn btn-light btnquestions">
-                                <p><strong>Question: </strong>{{ question.question }}</p>
+                            <button class="btn btn-light btnquestions" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <p><strong>► Question: </strong>{{ question.question }}</p>
                             </button> {% for answer in question.answers %}
 
-                            <div class="question-answer-arrow" style='margin-top: 10px'>
-                                <div>→</div>
-                                <div>{{ answer.answer }}</div>
+                            <div class="collapse" id="collapseExample">
+                                <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
+                                    <div>→</div>
+                                    <div>{{ answer.answer }}</div>
+                                </div>
                             </div>
                             {% endfor %}
                             <hr>
@@ -341,8 +343,8 @@
     </div>
 
     <div class="modal fade" id="ratingModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 450px">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 600px; height: 550px">
+            <div class="modal-content" style='height: 600px;'>
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
                         Check professor's ratings for courses
@@ -351,7 +353,24 @@
                 </div>
 
                 <div class="modal-body">
+                    <ul>
+                        {% for di in profs %}
 
+                        <l1>
+
+                            <p><strong>{{prof_name}}</strong></p>
+
+                            <p>
+                                <div><strong>{{ di['Name'] }} </strong>with rating: <strong>{{ di['Rating'] }} </strong>and a number of <strong>{{ di['NumOfRatings'] }}</strong> ratings</div>
+                            </p>
+
+                            <div class="question-answer-arrow" id="ans" style='margin-top: 10px'>
+                            </div>
+
+                            <hr>
+                            </li>
+                            {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
@@ -511,4 +530,4 @@
                    
                    
                    />
-<buttonswer
+<buttonswerd

@@ -3,6 +3,14 @@ from flask_login import login_required, current_user
 from . import models
 from . import db
 import text2emotion as te
+import json
+
+# Prof Dictionary //CoursesAndProfs.json
+f = open("CoursesAndProfs.json")
+FileData = f.read()
+f.close()
+
+CourseData = json.loads(FileData)
 
 # blueprint object of all the routes defined in this file
 routes = Blueprint('routes', __name__)
@@ -123,6 +131,7 @@ def home():
 
 
         elif form_submit == "view1":
+
             course_tag = request.form['courseTag']
             course_number = request.form['courseNumber']
             
@@ -146,7 +155,20 @@ def home():
         elif form_submit == "rating1":
             course_tag = request.form['courseTag']
             course_number = request.form['courseNumber']
-            
+
+            try:
+                ProfList = CourseData[course_tag][course_number]
+                for di in ProfList:
+                    print(di['Name'], di['Rating'], di['NumOfRatings'])
+                    """
+                    GT Lee N/A 0
+                    Mesbah Sharaf 4.5 255
+                    Alexander Gainer 4.2 255 
+                    """
+
+            except:
+                print("Course does not exist") 
+                
             if course_tag == "base":
                 return render_template('home.html', user=current_user, 
                     show_modal="answerModal1", error_text="Please pick a course name.")
@@ -159,7 +181,9 @@ def home():
 
             # show_answer2 should cause page to automatically show modal for seeing list of professors
             return render_template('home.html', user=current_user, show_modal="ratingModal2",
-                course_tag=course_tag, course_number=course_number)
+                course_tag=course_tag, course_number=course_number, profs=ProfList)
+
+        
 
 
     else:

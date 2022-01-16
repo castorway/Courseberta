@@ -1,16 +1,14 @@
 // function myFunction() {
 //     var element = document.getElementById("ans");
-//     if (element.classList == "hidden") {
-//         element.classList = "show";
-//     } else if (element.classList == "show") {
-//         element.classList = "hidden";
+//     if (element.classList.contains("hidden")) {
+//         element.classList.remove("hidden");
+//         element.classList.add("show");
+//     } else if (element.classList.contains("show")) {
+//         element.classList.remove("show");
+//         element.classList.add("hidden");
 //     }
 // }
 
-// function changeClass() {
-//     // Code examples from above
-// }
-
 // window.onload = function() {
-//     document.getElementById("questans").addEventListener("click", changeClass);
+//     document.getElementById("questans").addEventListener("click", myFunction);
 // };

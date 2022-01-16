@@ -35,6 +35,10 @@
   overflow-y: scroll;
 }
 
+textarea {
+  resize: none;
+}
+
 .cards {
   margin: 2.5rem 0;
   display: flex;
@@ -99,9 +103,9 @@
   width: 100%;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background: linear-gradient(217deg, #4c8213, rgba(255, 0, 0, 0) 70.71%),
-    linear-gradient(127deg, #e7c400, rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, #085d02, rgba(0, 0, 255, 0) 70.71%);
+  background: linear-gradient(270deg, #4c8213, rgba(196, 178, 13, 0) 70.71%),
+    linear-gradient(to top left, #4c8213, rgba(209, 182, 28, 0.78) 70.71%),
+    linear-gradient(to top, #085d02, rgba(0, 0, 255, 0) 70.71%);
   position: relative;
 }
 

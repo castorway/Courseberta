@@ -83,35 +83,34 @@
     {% if category == "error" %}
     <!-- error message(s) -->
 
-    <div class="alert alert-danger alert-dismissable fade show" role="alert">
-      {{ message }}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>{{ message }}</strong>
       <button
         type="button"
         class="btn-close"
         data-bs-dismiss="alert"
         aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
+      ></button>
     </div>
     {% elif category == "success" %}
     <!-- success message(s) -->
     <div class="alert alert-success alert-dismissable fade show" role="alert">
-      {{ message }}
+      <strong>{{ message }}</strong>
       <button
         type="button"
         class="btn-close"
         data-bs-dismiss="alert"
         aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
+      ></button>
     </div>
     {% endif %} {% endfor %} {% endif %} {% endwith %}
 
     <!-- content -->
     <div class="page-header">{% block page_header %}{% endblock%}</div>
     <div class="home-bar">{% block home_bar %} {% endblock %}</div>
+    <!-- <div class='logo2'> -->
+
+    <!-- </div> -->
     <div class="content">{% block content %} {% endblock %}</div>
 
     <!-- <hr style="background-color: grey" />
@@ -158,6 +157,10 @@
     <script
       type="text/javascript"
       src="{{ url_for('static', filename='modals.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='viewqanda.js') }}"
     ></script>
   </body>
 </html>

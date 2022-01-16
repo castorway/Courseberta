@@ -942,18 +942,32 @@ courses = [
     Accronym: "ZOOLE",
   },
 ];
-var select = document.getElementById("selectPicker");
+var selectAsk = document.getElementById("selectPicker");
+var selectAns = document.getElementById("selectAns");
+var selectView = document.getElementById("selectView");
 options = [];
 for (let i = 0; i < courses.length; i++) {
   options.push(courses[i].Accronym);
 }
-
-console.log(options);
 
 for (var i = 0; i < options.length; i++) {
   var opt = options[i];
   var el = document.createElement("option");
   el.textContent = opt;
   el.value = opt;
-  select.appendChild(el);
+  selectAsk.appendChild(el);
+}
+for (var i = 0; i < options.length; i++) {
+  var opt = options[i];
+  var el = document.createElement("option");
+  el.textContent = opt;
+  el.value = opt;
+  selectAns.appendChild(el);
+}
+for (var i = 0; i < options.length; i++) {
+  var opt = options[i];
+  var el = document.createElement("option");
+  el.textContent = opt;
+  el.value = opt;
+  selectView.appendChild(el);
 }

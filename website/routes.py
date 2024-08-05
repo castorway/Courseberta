@@ -67,16 +67,17 @@ def home():
                 # add question to database
                 question = models.Question(course_acronym=course_tag, course_number=course_number, question=text)
                 
-                emotion = te.get_emotion(text) # returns a dictionary, eg {"Happy": 0.53}
-                maxemotion = max(emotion, key=emotion.get) # use key=emotion.get to sort by dict values
+                # emotion = te.get_emotion(text) # returns a dictionary, eg {"Happy": 0.53}
+                # maxemotion = max(emotion, key=emotion.get) # use key=emotion.get to sort by dict values
 
-                # if maxemotion is 0 then all emotions were 0, so pick Neutral
-                if emotion[maxemotion] == 0:
-                    maxemotion = "Neutral"
+                # # if maxemotion is 0 then all emotions were 0, so pick Neutral
+                # if emotion[maxemotion] == 0:
+                #     maxemotion = "Neutral"
+                maxemotion = "Neutral"
 
                 question = models.Question(course_acronym=course_tag, course_number=course_number, question=text, sentiment=maxemotion)
 
-                print('Emotion found:', emotion, 'max:', maxemotion)
+                # print('Emotion found:', emotion, 'max:', maxemotion)
                 
                 db.session.add(question)
                 db.session.commit()
@@ -146,12 +147,13 @@ def home():
             print("> got answer:", text)
             print("> question selected:", question_id, question.question)
 
-            emotion = te.get_emotion(text) # returns a dictionary, eg {"Happy": 0.53}
-            maxemotion = max(emotion, key=emotion.get) # use key=emotion.get to sort by dict values
+            # emotion = te.get_emotion(text) # returns a dictionary, eg {"Happy": 0.53}
+            # maxemotion = max(emotion, key=emotion.get) # use key=emotion.get to sort by dict values
 
-            # if maxemotion is 0 then all emotions were 0, so pick Neutral
-            if emotion[maxemotion] == 0:
-                maxemotion = "Neutral"
+            # # if maxemotion is 0 then all emotions were 0, so pick Neutral
+            # if emotion[maxemotion] == 0:
+            #     maxemotion = "Neutral"
+            maxemotion = "Neutral"
 
             answer = models.Answer(answer=text, sentiment=maxemotion, question=question)
 

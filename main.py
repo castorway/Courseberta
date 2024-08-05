@@ -4,4 +4,4 @@ from website import create_app
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=True)  # run the web app and update on every save
+    app.run(debug=True, port=5001)  # run the web app and update on every save
